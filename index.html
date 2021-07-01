@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>מחשבון</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                background: #263238;
+                padding-top: 1rem;
+                color: #CFD8DC;
+            }
+
+            .header-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .rows-container{
+                display: flex;
+                justify-content: space-around;
+                padding-top: 1rem;
+            }
+
+            .row{
+                font-size: 9vw;
+                height: 10vw;
+                border-width: 0.05px 0.05px .2rem;
+                border-color: #37474F;
+                background: transparent;
+                color: white;
+            }
+
+            .header{
+                font-size: 9vw;
+                width: 31%;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            input[type="text" i] {
+                padding: 0px;
+            }
+        </style>
+        <script>
+            function calc(){
+                var price = Number(document.querySelector('.row.price').value);
+                var gram = Number(document.querySelector('.row.gram').value);
+                
+                var ratioElement = document.querySelector('.row.ratio');
+
+                if(price && gram){
+                    ratioElement.value = ((price/gram) * 100).toFixed(2) + '₪';
+                }
+                else{
+                    ratioElement.value = 0 + '₪';
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header-container">
+            <div style="width: 25%;" class="header">מחיר</div>
+            <div style="width: 25%;" class="header">משקל</div>
+            <div style="width: 40%;" class="header">יחס</div>
+        </div>
+        <div class="rows-container">
+            <input style="width: 27%;" type="number" class="row price" onchange="calc()" value="">
+            <input style="width: 27%;" type="number" class="row gram" onchange="calc()" value="">
+            <input style="width: 36%;" type="text" class="row ratio" value="0₪" disabled>
+        </div>
+    </body>
+</html>
