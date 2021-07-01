@@ -14,6 +14,11 @@
                 justify-content: space-around;
             }
 
+            .details-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
             .rows-container{
                 display: flex;
                 justify-content: space-around;
@@ -34,6 +39,13 @@
                 width: 31%;
                 text-align: center;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            
+            .details{
+                width: 31%;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #90A4AE;
             }
             input[type="text" i] {
                 padding: 0px;
@@ -60,6 +72,11 @@
             <div style="width: 25%;" class="header">מחיר</div>
             <div style="width: 25%;" class="header">משקל</div>
             <div style="width: 40%;" class="header">יחס</div>
+        </div>
+        <div class="details-container">
+            <div style="width: 25%;" class="details">בשקלים</div>
+            <div style="width: 25%;" class="details">בגרמים</div>
+            <div style="width: 40%;" class="details">מחיר ל- 100 גרם</div>
         </div>
         <div class="rows-container">
             <input style="width: 27%;" type="number" class="row price" onchange="calc()" value="">
