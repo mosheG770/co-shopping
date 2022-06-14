@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <title>מחשבון</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                background: #263238;
+                padding-top: 1rem;
+                color: #CFD8DC;
+            }
+
+            .header-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .details-container{
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .rows-container{
+                display: flex;
+                justify-content: space-around;
+                padding-top: 1rem;
+            }
+
+            .history-management{
+                display: flex;
+                justify-content: space-around;
+                padding-top: 1rem;            
+            }
+
+
+            .row{
+                font-size: 9vw;
+                height: 10vw;
+                border-width: 0.05px 0.05px .2rem;
+                border-color: #37474F;
+                background: transparent;
+                color: white;
+            }
+
+            .header{
+                font-size: 9vw;
+                width: 31%;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            
+            .details{
+                width: 31%;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #90A4AE;
+            }
+            input[type="text" i] {
+                padding: 0px;
+            }
+
+            .add-history{
+                width: 90vw;
+                font-size: 7vw;
+                color: #90A4AE;
+                background: #37474F;
+                border-color: #607D8B;
+            }
+
+            .history-item{
+                display: flex;
+                justify-content: space-around;
+                padding-top: 1rem;
+                padding-left: 6px;
+                padding-right: 6px;
+                font-size: 7vw;
+                text-align: center;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #90A4AE;
+                border-style: solid;
+                border-width: 0px 0px 2px 0px;
+                border-color: #90a4ae4f;
+            }
+            .history-item div:nth-child(1),
+            .history-item div:nth-child(2){
+                width: 27%;
+            }
+            .history-item div:nth-child(3){
+                width: 36%;
+                text-align: right;
+            }
+        </style>
+        <script>
+            function calc(){
+                var price = Number(document.querySelector('.row.price').value);
+                var gram = Number(document.querySelector('.row.gram').value);
+                
+                var ratioElement = document.querySelector('.row.ratio');
+
+                if(price && gram){
+                    ratioElement.value = ((price/gram) * 100).toFixed(2) + '₪';
+                }
+                else{
+                    ratioElement.value = 0 + '₪';
+                }
+            }
+
+            //var calcHistory = [];
+
+            // function loadHistory(){
+            //     const historyJson = document.cookie
+            //         .split('; ')
+            //         .find(row => row.startsWith('history='))
+            //         .split('=')[1];
+
+            //         calcHistory = JSON.parse(historyJson);
+            // }
+
+            // function saveHistory(){
+            //     document.cookie = "history=" + JSON.stringify(calcHistory) + "; SameSite=None; Secure";
+            // }
+
+            function addHistory() {
+                const price = document.querySelector('.row.price').value;
+                const gram = document.querySelector('.row.gram').value;
+                const ratio = document.querySelector('.row.ratio').value;
+
+                const dataChunk = {price, gram, ratio};
+                if(price && gram){
+                    //calcHistory.push(dataChunk);
+                    //saveHistory();
+                    AddHistoryToPage(dataChunk);
+                }
+
+            }
+            function AddHistoryToPage(dataChunk){
+                const container = document.getElementsByClassName("history-container")[0];
+                let newElement = CreateNewHistoryElement(dataChunk);
+
+                InsertFirst(container, newElement);
+            }
+            /* Pure 
+            * {price, gram, ratio}
+            */
+            function CreateNewHistoryElement(dataChunk){
+                let base = document.createElement("div");
+                let price = document.createElement("div");
+                let gram = document.createElement("div");
+                let ratio = document.createElement("div");
+
+                base.classList.add("history-item");
+
+                price.innerText = dataChunk.price;
+                gram.innerText = dataChunk.gram;
+                ratio.innerText = dataChunk.ratio;
+
+                base.append(price);
+                base.append(gram);
+                base.append(ratio);
+
+                return base;
+            }
+
+            /* Pure */
+            function InsertFirst(parent, elementToAdd){
+                if(parent.children.length > 0){
+                    parent.insertBefore(elementToAdd, parent.firstChild);
+                }
+                else{
+                    parent.append(elementToAdd)
+                }
+
+            }
+        </script>
+    </head>
+    <body>
+        <div class="header-container">
+            <div style="width: 25%;" class="header">מחיר</div>
+            <div style="width: 25%;" class="header">משקל</div>
+            <div style="width: 40%;" class="header">יחס</div>
+        </div>
+        <div class="details-container">
+            <div style="width: 25%;" class="details">בשקלים</div>
+            <div style="width: 25%;" class="details">בגרמים</div>
+            <div style="width: 40%;" class="details">מחיר ל- 100 גרם</div>
+        </div>
+        <div class="rows-container">
+            <input style="width: 27%;" type="number" class="row price" onchange="calc()" value="">
+            <input style="width: 27%;" type="number" class="row gram" onchange="calc()" value="">
+            <input style="width: 36%;" type="text" class="row ratio" value="0₪" disabled>
+        </div>
+        <div class="history-management">
+            <button class="add-history" onclick="addHistory()">שמירה</button>
+        </div>
+        <div class="history-container">
+            
+        </div>
+    </body>
+</html>
